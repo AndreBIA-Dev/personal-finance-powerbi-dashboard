@@ -64,7 +64,7 @@ The project applies DAX measures for:
 
 The dashboard was exported to PDF for portfolio demonstration.
 
-[View the Power BI Dashboard PDF](Finance%20Project.pdf)
+[View the Power BI Dashboard PDF](Finance%20Project1.pdf)
 
 ## Skills Demonstrated
 
