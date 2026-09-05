@@ -1,0 +1,30 @@
+DAX MEASURES 
+
+
+
+
+ Total_Value = SUM('Dataset'[Value])
+    Income = CALCULATE([Total_Value],'Dataset'[Type]="Income")
+    Savings% = DIVIDE([Savings],[Income])
+    Month-Yr = FORMAT('Dataset'[Date],"mmm-yy")
+   Year = YEAR('Dataset'[Date])
+    Expenses = CALCULATE([Total_Value],'Dataset'[Type]="Expense")
+    Savings = CALCULATE([Total_Value],'Dataset'[Type]="Savings")
+    Income LM = CALCULATE([Income],DATEADD('Dataset'[Date],-1,MONTH))
+   Income Change MON% = DIVIDE([Income],[Income LM])
+    Target = CALCULATE(SUM('Dataset'[Value]),'Dataset'[Type]="Target")
+    Expenses% = DIVIDE([Expenses],[Income])
+ Line_Selection_table = DATATABLE("Type",STRING,"No",INTEGER,
+{
+    {"Income",1},{"Savings",2},{"Expenses",3},{"Target",4}
+})
+   line_chart_measures = VAR selected_val = SELECTEDVALUE(
+    Line_Selection_table[Type])
+    RETURN selected_val
+
+    line_chart_measures = VAR selected_val = SELECTEDVALUE(
+    Line_Selection_table[NO])
+    RETURN 
+    SWITCH(selected_val,1,[Expenses%],2,[Income Change MOM%],3,[Savings%],4,[Target])
+ 
+ Dynamic_title = SELECTEDVALUE(Line_Selection_table[Type])&" by Date"
